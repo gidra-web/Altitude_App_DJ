@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  />
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+  <body>
+    <div class="container col-3 mt-5">
+      <div class="row d-flex justify-content-center mt-5">
+        <form action="/registerForm" method="post">
+          <h2 class="text-center pb-2">User Register</h2>
+          <div data-mdb-input-init class="form-outline mb-4">
+            <label class="form-label" for="registerName">Name</label>
+            <input type="text" id="registerName" name="name" class="form-control" placeholder="Marko"/>
+          </div>
+        
+          <!-- Username input -->
+          <div data-mdb-input-init class="form-outline mb-4">
+            <label class="form-label" for="registerlastname">Last Name</label>
+            <input type="text" id="registerlastname" name="lastname" class="form-control" placeholder="Markovic"/>
+          </div>
+
+          <!-- Date of Birth input -->
+          <div data-mdb-input-init class="form-outline mb-4">
+            <label class="form-label" for="registerDob">Date of Birth</label>
+            <input type="date" id="registerDob" name="dateOfBirth" class="form-control"/>
+          </div>
+
+           <!-- Email input -->
+           <div data-mdb-input-init class="form-outline mb-4">
+            <label class="form-label" for="registerEmail">Email</label>
+            <input type="email" id="registerEmail" name="email" class="form-control" placeholder="email@mail.com"/>
+          </div>
+        
+          <!-- Password input -->
+          <div data-mdb-input-init class="form-outline mb-4">
+                        <label class="form-label" for="registerPassword">Password</label>
+            <input type="password" id="registerPassword" name="password" class="form-control"  placeholder="**********"/>
+          </div>
+        
+          <!-- Checkbox -->
+          <div class="form-check d-flex justify-content-center mb-4">
+            <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck" checked
+              aria-describedby="registerCheckHelpText" />
+            <label class="form-check-label" for="registerCheck">
+              I have read and agree to the terms
+            </label>
+          </div>
+        
+          <!-- Submit button -->
+          <button  type="submit" data-mdb-button-init data-mdb-ripple-init class="mx-auto d-block btn btn-primary btn-block mb-4">Sign up</button>
+        
+          <!-- Register buttons -->
+          <div class="text-center">
+            <p>Already a member? <a href="/login">Login</a></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
+
+
+
+

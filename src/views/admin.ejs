@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Search</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <script>
+      $.ajax({
+        url: "https://randomuser.me/api/",
+        dataType: "json",
+        success: function (data) {
+          console.log(data);
+        },
+      });
+    </script>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h1 class="text-center mb-4">Admin Search</h1>
+
+      <!-- Search Form -->
+      <h3 class="mt-5">Search Profile</h3>
+      <form action="/admin/search" method="GET">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                placeholder="Search by Email"
+                value="<%= query.email || '' %>"
+              />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="mb-3">
+              <label for="dateofbirth" class="form-label">Date of Birth</label>
+              <input
+                type="date"
+                class="form-control"
+                id="dateOfBirth"
+                name="dateOfBirth"
+                value="<%= query.dateOfBirth || '' %>"
+              />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="mb-3 d-flex justify-content-end">
+              <button type="submit" class="btn btn-primary mt-4">Search</button>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <!-- Profiles Table -->
+      <h3 class="mt-5">Profiles</h3>
+      <table class="table mb-0 table-hover table-dark">
+        <thead class="table-info">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">LastName</th>
+            <th scope="col">Email</th>
+            <th scope="col">Date of Birth</th>
+            <th scope="col">Password</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% let rowNumber = 1; %> <% if (profiles && profiles.length > 0) { %>
+          <% profiles.forEach((profile) => { %>
+          <tr>
+            <td><%= rowNumber++ %></td>
+            <td><%= profile.name %></td>
+            <td><%= profile.lastname %></td>
+            <td><%= profile.email %></td>
+            <td><%= profile.dateOfBirth.toLocaleDateString() %></td>
+            <td><%= profile.password %></td>
+            <td>
+              <a href="/admin/<%= profile._id %>" class="btn btn-danger"
+                >Delete
+              </a>
+            </td>
+          </tr>
+          <% }); %> <% } else { %>
+          <tr>
+            <td colspan="7" class="text-center">No Profiles found</td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Bootstrap JS (Optional, for interaction) -->
+  </body>
+</html>
