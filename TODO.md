@@ -25,3 +25,11 @@ REFRESHTOKEN='1y'
 ADMIN_EMAIL=admin@admin
 ADMIN_USERNAME=admin
 ADMIN_PASSWORD=admin123
+
+***********
+uri ako se pristupa preko docker-compose
+MONGODB_URI='mongodb://root:example@mongo:27017'
+
+uri ako se pokrece aplikacija klasicno sa vec integrisanom mongodb bazom
+MONGODB_URI='mongodb://root:example@localhost:27017/'
+***********
