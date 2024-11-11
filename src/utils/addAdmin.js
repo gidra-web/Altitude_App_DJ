@@ -1,19 +1,16 @@
 import Profile from '../models/profile.model.js';
-import bcryptjs from 'bcryptjs';
 import 'dotenv/config';
 
 // Admin credentials
 
 export const addAdmin  = async () => {
   try {
-    // Check if the admin already exists
     const existingAdmin = await Profile.findOne({ email: process.env.ADMIN_EMAIL });
     if (existingAdmin) {
       console.log('Admin already exists.');
       return;
     }
-
-    // Create a new admin user
+    
     new Profile({
       name: process.env.ADMIN_USERNAME,
       lastname: 'admin',
