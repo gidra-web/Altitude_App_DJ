@@ -1,25 +1,25 @@
 import mongoose from "mongoose";
 import bcryptjs from "bcryptjs";
-import 'dotenv/config';
+import "dotenv/config";
 
 const profileSchema = new mongoose.Schema(
   {
     name: { type: String, required: [true, "Name is required"] },
-    lastname: { type: String, required: [true, "Last Name is required"] },
+    lastname: { type: String, required: false },
     dateOfBirth: {
       type: Date,
-      required: [true, "Date of Birth is required"],
+      required: false,
     },
     email: {
       type: String,
       required: [true, "Email is required"],
       unique: true,
     },
-    password: { type: String, required: [true, "Password is required"] },
+    password: { type: String, required: false },
     role: {
       type: String,
-      enum: ['admin', ' '], 
-      default: ' ', 
+      enum: ["admin", " "],
+      default: " ",
     },
   },
   { timestamps: true }

@@ -79,7 +79,7 @@
             <td><%= profile.name %></td>
             <td><%= profile.lastname %></td>
             <td><%= profile.email %></td>
-            <td><%= profile.dateOfBirth.toLocaleDateString() %></td>
+            <td><%= profile.dateOfBirth ? profile.dateOfBirth.toLocaleDateString() : ' ' %></td>
             <td><%= profile.password %></td>
             <td>
               <a href="/admin/<%= profile._id %>" class="btn btn-danger"

@@ -14,21 +14,19 @@ router.get('/', (req, res) => {
     res.redirect('/login');
 });
 
+router.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+}));
+
+router.use(passport.initialize());
+router.use(passport.session());
+
 router.use('/', routeLogin );
 router.use('/', routeRegister );
 router.use('/admin', routeAdmin );
 router.use('/profile', routeProfile );
-
-router.use(session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-  }));
-  
-router.use(passport.initialize());
-router.use(passport.session());
-  
-  // Dodaj rute za autentifikaciju
-router.use('/', authRoutes);
+router.use('/auth/google', authRoutes);
 
 export default router;

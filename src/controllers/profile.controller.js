@@ -15,7 +15,7 @@ export const getProfile = async (req, res) => {
 export const updateProfile = async (req, res) => {
   try {
     const { id, name, lastname, dateOfBirth } = req.body;
-    const profile = await Profile.findByIdAndUpdate(
+    await Profile.findByIdAndUpdate(
       id,
       { name, lastname, dateOfBirth },
       { new: true }

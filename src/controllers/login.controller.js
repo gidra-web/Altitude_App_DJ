@@ -10,39 +10,28 @@ export const login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
+    const profile = await Profile.findOne({ email });
+    if (!profile) return handleDeletedProfile(email, password, res);
 
-    let profile = await Profile.findOne({ email });
-
-    if (!profile) {
-
-      const deletedProfile = await DeletedProfile.findOne({ email });
-
-      if (deletedProfile) {
-
-        const isPasswordMatch = await bcryptjs.compare(password, deletedProfile.password);
-        
-        if (isPasswordMatch) {
-          return res.status(400).json({ message: 'Your account has been deleted by the admin.' });
-        }
-
-        return res.status(400).json({ message: 'Invalid credentials' });
-      }
-
-      return res.status(404).json({ message: 'Profile not found' });
-    }
     const isPasswordMatch = await bcryptjs.compare(password, profile.password);
+    if (!isPasswordMatch) return res.status(400).json({ message: 'Password doesn\'t match' });
 
-    if (!isPasswordMatch) {
-      return res.status(400).json({ message: 'Invalid credentials' });
-    }
-
-    if (profile.role === 'admin') {
-      return res.redirect('/admin');
-    }
-    res.redirect(`/profile?id=${profile._id}`);
+    const redirectUrl = profile.role === 'admin' ? '/admin' : `/profile?id=${profile._id}`;
+    return res.redirect(redirectUrl);
 
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Error logging in' });
+    return res.status(500).json({ message: 'Error logging in' });
   }
+};
+
+const handleDeletedProfile = async (email, password, res) => {
+  const deletedProfile = await DeletedProfile.findOne({ email });
+  
+  if (!deletedProfile) return res.status(404).json({ message: 'Profile not found' });
+
+  const isPasswordMatch = await bcryptjs.compare(password, deletedProfile.password);
+  if (isPasswordMatch) return res.status(400).json({ message: 'Your account has been deleted by the admin.' });
+
+  return res.status(400).json({ message: 'Invalid credentials' });
 };

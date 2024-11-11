@@ -5,7 +5,6 @@ export const getProfiles = async (req, res) => {
   try {
     const profiles = await Profile.find({});
     res.render('../src/views/admin.ejs', { profiles, query: '' })
-    //res.render("../src/views/admin.ejs", { profiles });
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Error retrieving profiles" });
@@ -14,14 +13,11 @@ export const getProfiles = async (req, res) => {
 
 export const searchProfiles = async (req, res) => {
   try {
-    // Extract query parameters (handle potential absence gracefully)
     const { email = '', dateOfBirth = '' } = req.query;
 
-    // Construct a dynamic filter object with proper type checking
     const query = {};
-    if (email) {
-      query.email = email.toLowerCase().trim(); // Sanitize email for case-insensitive search and trimming
-    }
+    if (email) query.email = email.toLowerCase().trim();
+
     if (dateOfBirth) {
       try {
         query.dateOfBirth = new Date(dateOfBirth);
@@ -30,19 +26,14 @@ export const searchProfiles = async (req, res) => {
       }
     }
 
-    // Query the database with the constructed filter
     const profiles = await Profile.find(query);
 
-    // Handle successful and empty search results effectively
-    if (profiles.length === 0) {
-      return res.status(404).json({ message: 'No profiles found matching your criteria.' });
-    }
+    if (profiles.length === 0) return res.status(404).json({ message: 'No profiles found matching your criteria.' });
 
-    // Send successful response with proper status code and filtered profiles
     return res.status(200).json(profiles);
   } catch (error) {
-    console.error('Error searching profiles:', error); // Log the error for debugging
-    return res.status(500).json({ message: 'Internal server error' }); // Generic error message for security
+    console.error('Error searching profiles:', error); 
+    return res.status(500).json({ message: 'Internal server error' });
   }
 };
 
